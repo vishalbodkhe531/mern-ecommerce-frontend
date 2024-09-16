@@ -5,7 +5,6 @@ import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
-// import "../../assets/data.json";
 import data from "../../assets/data.json";
 
 const userImg =
