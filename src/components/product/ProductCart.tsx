@@ -6,7 +6,7 @@ export type ProductProps = {
   photo: string;
   name: string;
   price: number;
-  stoke: number;
+  stock: number;
   handler: () => void;
 };
 
@@ -15,7 +15,7 @@ function ProductCart({
   photo,
   name,
   price,
-  stoke,
+  stock,
   handler,
 }: ProductProps) {
   return (

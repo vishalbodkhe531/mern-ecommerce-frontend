@@ -17,7 +17,7 @@ import { useState } from "react";
 //   user: User | null;
 // }
 
-const user = { _id: "sfdg", roll: "admin" };
+const user = { _id: "sfg", roll: "" };
 
 // const Header = ({ user }: PropsType) => {
 const Header = () => {

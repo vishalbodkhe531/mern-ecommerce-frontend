@@ -28,7 +28,7 @@ function Home() {
       photo: "https://m.media-amazon.com/images/I/61UBJTVndXL._SY450_.jpg",
       name: "hp",
       price: 34000,
-      stoke: 20,
+      stock: 20,
       handler: () => addToCartHandler,
     },
 
@@ -37,7 +37,7 @@ function Home() {
       photo: "https://m.media-amazon.com/images/I/711v0d6yDLL._SY679_.jpg",
       name: "Poco M6 5G",
       price: 9998,
-      stoke: 32,
+      stock: 32,
       handler: () => addToCartHandler,
     },
 
@@ -46,7 +46,7 @@ function Home() {
       photo: "https://m.media-amazon.com/images/I/71d7UKkg6xL._SX522_.jpg",
       name: "hp",
       price: 2499,
-      stoke: 52,
+      stock: 52,
       handler: () => addToCartHandler,
     },
 
@@ -55,7 +55,7 @@ function Home() {
       photo: "https://m.media-amazon.com/images/I/61egMfcDWlL._SX679_.jpg",
       name: "hp",
       price: 32342,
-      stoke: 12,
+      stock: 12,
       handler: () => addToCartHandler,
     },
 
@@ -64,7 +64,7 @@ function Home() {
       photo: "https://m.media-amazon.com/images/I/71VgbcbNFHL._SY450_.jpg",
       name: "hp",
       price: 8237,
-      stoke: 12,
+      stock: 12,
       handler: () => addToCartHandler,
     },
   ];
@@ -87,7 +87,7 @@ function Home() {
               photo={item.photo}
               name={item.name}
               price={item.price}
-              stoke={item.stoke}
+              stock={item.stock}
               handler={item.handler}
             />
           ))}
