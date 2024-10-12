@@ -2,6 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loader from "./components/loader/Loader";
 import Header from "./components/header/Header";
+import { Toaster } from "react-hot-toast";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const Search = lazy(() => import("./pages/search/Search"));
@@ -50,15 +51,7 @@ function AppRoutes() {
             <Route path="/orders" element={<Orders />} />
           </Route>
           {/* admin-Routes */}
-          <Route
-          // element={
-          //   <ProtectedRoute
-          //     isAuthenticated={true}
-          //     adminRoute={true}
-          //     isAdmin={true}
-          //   />
-          // }
-          >
+          <Route>
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
@@ -85,6 +78,7 @@ function AppRoutes() {
           ;
         </Routes>
       </Suspense>
+      <Toaster position="bottom-center" />
     </Router>
   );
 }
