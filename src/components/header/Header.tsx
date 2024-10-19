@@ -8,8 +8,10 @@ import {
   FaSignInAlt,
 } from "react-icons/fa";
 import { useState } from "react";
-import { User } from "firebase/auth";
-// import { User } from "../types/types";
+import { User } from "../../types/types";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+import toast from "react-hot-toast";
 // import { signOut } from "firebase/auth";
 // import { auth } from "../firebase";
 // import toast from "react-hot-toast";
@@ -27,13 +29,13 @@ const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = async () => {
-    // try {
-    //   await signOut(auth);
-    //   toast.success("Sign Out Successfully");
-    //   setIsOpen(false);
-    // } catch (error) {
-    //   toast.error("Sign Out Fail");
-    // }
+    try {
+      await signOut(auth);
+      toast.success("Sign Out Successfully");
+      setIsOpen(false);
+    } catch (error) {
+      toast.error("Sign Out Fail");
+    }
   };
 
   return (
@@ -73,18 +75,18 @@ const Header = ({ user }: PropsType) => {
 
       {user?._id ? (
         <>
-          <Link to={"/login"}>
-            <button>
-              <FaUser onClick={() => setIsOpen((prev) => !prev)} />
-            </button>
-          </Link>
+          {/* <Link to={""> */}
+          <button>
+            <FaUser onClick={() => setIsOpen((prev) => !prev)} />
+          </button>
+          {/* </Link> */}
           <dialog open={isOpen}>
             <div>
-              {user.roll === "admin" && (
+              {user.role === "admin" && (
                 <Link to={"/admin/dashboard"}>admin</Link>
               )}
               <Link to={"/orders"}>orders</Link>
-              <button>
+              <button onClick={logoutHandler}>
                 <FaSignOutAlt />
               </button>
             </div>
