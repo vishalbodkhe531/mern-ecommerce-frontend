@@ -18,8 +18,6 @@ function Login() {
       const provider = new GoogleAuthProvider();
       const { user } = await signInWithPopup(auth, provider);
 
-      console.log(user);
-
       const { displayName, email, photoURL, uid } = user;
 
       const res = await login({
@@ -33,7 +31,9 @@ function Login() {
       });
 
       if ("data" in res) {
-        console.log(res);
+        console.log("res : ", res);
+        toast.success(res.data?.message!);
+        // toast.success();
       } else {
         const error = res.error as FetchBaseQueryError;
         console.log("Error response:", error);

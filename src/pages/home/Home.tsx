@@ -84,6 +84,7 @@ function Home() {
           {productData.map((item) => (
             <ProductCart
               productId={item.productId}
+              key={item.productId}
               photo={item.photo}
               name={item.name}
               price={item.price}

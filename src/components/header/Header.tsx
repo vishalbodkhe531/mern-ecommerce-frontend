@@ -8,6 +8,7 @@ import {
   FaSignInAlt,
 } from "react-icons/fa";
 import { useState } from "react";
+import { User } from "firebase/auth";
 // import { User } from "../types/types";
 // import { signOut } from "firebase/auth";
 // import { auth } from "../firebase";
@@ -17,10 +18,12 @@ import { useState } from "react";
 //   user: User | null;
 // }
 
-const user = { _id: "sfg", roll: "" };
+interface PropsType {
+  user: User | null;
+}
 
 // const Header = ({ user }: PropsType) => {
-const Header = () => {
+const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const logoutHandler = async () => {
