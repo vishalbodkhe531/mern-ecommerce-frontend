@@ -1,73 +1,16 @@
 import { Link } from "react-router-dom";
-// import Products from "../admin/products";
-import ProductCart, {
-  ProductProps,
-} from "../../components/product/ProductCart";
+import ProductCart from "../../components/product/ProductCart";
+import { useLatestProductsQuery } from "../../redux/api/productAPI";
+import { Product } from "../../types/types";
+import toast from "react-hot-toast";
+import { Skeleton } from "../../components/loader/Loader";
 
 function Home() {
-  // const categories = [
-  //   "Electronics",
-  //   "Mobiles",
-  //   "Laptops",
-  //   "Books",
-  //   "Fashion",
-  //   "Appliances",
-  //   "Furniture",
-  //   "Home Decor",
-  //   "Grocery",
-  //   "Beauty",
-  //   "Toys",
-  //   "Fitness",
-  // ];
+  const { data, isLoading, isError } = useLatestProductsQuery("");
+
+  if (isError) toast.error("cannot fatch the product");
 
   const addToCartHandler = () => {};
-
-  const productData: ProductProps[] = [
-    {
-      productId: "0123",
-      photo: "https://m.media-amazon.com/images/I/61UBJTVndXL._SY450_.jpg",
-      name: "hp",
-      price: 34000,
-      stock: 20,
-      handler: () => addToCartHandler,
-    },
-
-    {
-      productId: "0213",
-      photo: "https://m.media-amazon.com/images/I/711v0d6yDLL._SY679_.jpg",
-      name: "Poco M6 5G",
-      price: 9998,
-      stock: 32,
-      handler: () => addToCartHandler,
-    },
-
-    {
-      productId: "0432",
-      photo: "https://m.media-amazon.com/images/I/71d7UKkg6xL._SX522_.jpg",
-      name: "hp",
-      price: 2499,
-      stock: 52,
-      handler: () => addToCartHandler,
-    },
-
-    {
-      productId: "2328",
-      photo: "https://m.media-amazon.com/images/I/61egMfcDWlL._SX679_.jpg",
-      name: "hp",
-      price: 32342,
-      stock: 12,
-      handler: () => addToCartHandler,
-    },
-
-    {
-      productId: "3211",
-      photo: "https://m.media-amazon.com/images/I/71VgbcbNFHL._SY450_.jpg",
-      name: "hp",
-      price: 8237,
-      stock: 12,
-      handler: () => addToCartHandler,
-    },
-  ];
 
   return (
     <>
@@ -81,17 +24,21 @@ function Home() {
         </h1>
 
         <main>
-          {productData.map((item) => (
-            <ProductCart
-              productId={item.productId}
-              key={item.productId}
-              photo={item.photo}
-              name={item.name}
-              price={item.price}
-              stock={item.stock}
-              handler={item.handler}
-            />
-          ))}
+          {isLoading ? (
+            <Skeleton width="80vw" />
+          ) : (
+            data?.product.map((item: Product) => (
+              <ProductCart
+                productId={item._id}
+                key={item._id}
+                photo={item.photo}
+                name={item.name}
+                price={item.price}
+                stock={item.stock}
+                handler={addToCartHandler}
+              />
+            ))
+          )}
         </main>
       </div>
 

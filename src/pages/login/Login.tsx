@@ -31,9 +31,7 @@ function Login() {
       });
 
       if ("data" in res) {
-        console.log("res : ", res);
         toast.success(res.data?.message!);
-        // toast.success();
       } else {
         const error = res.error as FetchBaseQueryError;
         console.log("Error response:", error);

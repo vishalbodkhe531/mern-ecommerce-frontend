@@ -1,5 +1,6 @@
 import { FaExpandAlt, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { server } from "../../redux/store";
 
 export type ProductProps = {
   productId: string;
@@ -20,7 +21,7 @@ function ProductCart({
 }: ProductProps) {
   return (
     <div className="product-card">
-      <img src={photo} />
+      <img src={`${server}/${photo}`} />
       <p>{name}</p>
       <span>₹{price}</span>
 

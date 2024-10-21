@@ -13,7 +13,6 @@ export const userReducer = createSlice({
   reducers: {
     userExist: (state, action: PayloadAction<User>) => {
       state.loading = false;
-      console.log(action);
       state.user = action.payload;
     },
 
