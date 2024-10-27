@@ -49,8 +49,6 @@ function Search() {
     const err = productError as customeError;
     toast.error(err.data.message);
   }
-  console.log(searchedData?.totlePage);
-  // console.log(searchedData);
 
   return (
     <>
@@ -61,8 +59,8 @@ function Search() {
             <h4>Sort</h4>
             <select value={sort} onChange={(e) => setSort(e.target.value)}>
               <option value="">None</option>
-              <option value="">Price (Low to Heigh)</option>
-              <option value="">Price (Heigh to Low )</option>
+              <option value="asc">Price (Low to Heigh)</option>
+              <option value="dsc">Price (Heigh to Low )</option>
             </select>
           </div>
 

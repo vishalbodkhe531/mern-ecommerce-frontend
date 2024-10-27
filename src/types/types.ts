@@ -15,4 +15,5 @@ export interface Product {
   dob: string;
   price: number;
   stock: number;
+  category: string;
 }
