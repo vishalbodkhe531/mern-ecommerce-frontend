@@ -1,8 +1,20 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { cartReducerInitialState } from "../../types/reducer-types";
+import { useSelector } from "react-redux";
 
 function Shipping() {
+  const { cartItems } = useSelector(
+    (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (cartItems.length <= 0) return navigate("/cart");
+  }, [cartItems]);
+
   const [shippingInfo, setShippingInfo] = useState({
     address: "",
     city: "",
@@ -10,8 +22,6 @@ function Shipping() {
     country: "",
     pinCode: "",
   });
-
-  const navigate = useNavigate();
 
   const changeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>

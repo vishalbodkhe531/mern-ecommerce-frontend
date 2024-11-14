@@ -1,59 +1,104 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
-import CartItem from "../../components/cart-Item/CartItem";
+import CartItemCard from "../../components/cart-Item/CartItem";
 import { Link } from "react-router-dom";
-
-const cartsItem = [
-  {
-    productId: "123",
-    photo: "https://m.media-amazon.com/images/I/61UBJTVndXL._SY450_.jpg",
-    name: "mackbook",
-    price: 3000000,
-    quantity: 4,
-    stock: 10,
-  },
-];
-const subtotle = 27123;
-const tax = Math.round(subtotle * 0.18);
-const shipingCharges = 200;
-const discount = 400;
-const totle = subtotle + tax + shipingCharges;
+import { useDispatch, useSelector } from "react-redux";
+import { cartReducerInitialState } from "../../types/reducer-types";
+import { CartItem } from "../../types/types";
+import {
+  addToCart,
+  calculatePrice,
+  discoutApplied,
+  removeCartItem,
+} from "../../redux/reduser/cartReducers";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { server } from "../../redux/store";
 
 function Cart() {
+  const { cartItems, subtotal, tax, total, shippingCharges, discount } =
+    useSelector(
+      (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+    );
+
+  const dispatch = useDispatch();
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValideCouponCode, setIsValideCouponCode] = useState<boolean>(false);
 
+  const incrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity >= cartItem.stock)
+      return toast.error("stocks are limited");
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+
+  const decrementHandler = (cartItem: CartItem) => {
+    if (cartItem.quantity <= 1) return toast.error("Invalide stocks");
+    dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+
+  const removeHandler = (productId: string) => {
+    dispatch(removeCartItem(productId));
+  };
+
   useEffect(() => {
+    const { token: cancelToken, cancel } = axios.CancelToken.source();
+
     const timeOutId = setTimeout(() => {
-      if (Math.random() > 0.5) setIsValideCouponCode(true);
-      else setIsValideCouponCode(false);
+      axios
+        .get(`${server}/api/v1/payment/discount?coupon=${couponCode}`, {
+          cancelToken,
+        })
+        .then((res) => {
+          dispatch(discoutApplied(res.data.discount));
+          setIsValideCouponCode(true);
+          dispatch(calculatePrice());
+        })
+        .catch(() => {
+          dispatch(discoutApplied(0));
+          setIsValideCouponCode(false);
+          dispatch(calculatePrice());
+        });
     }, 1000);
 
     return () => {
       clearTimeout(timeOutId);
+      cancel();
       setIsValideCouponCode(false);
     };
   }, [couponCode]);
+
+  useEffect(() => {
+    dispatch(calculatePrice());
+  }, [cartItems]);
 
   return (
     <>
       <div className="cart">
         <main>
-          {cartsItem.length > 0 ? (
-            cartsItem.map((el, idx) => <CartItem key={idx} cartItem={el} />)
+          {cartItems.length > 0 ? (
+            cartItems.map((el, idx) => (
+              <CartItemCard
+                key={idx}
+                cartItem={el}
+                incrementHandler={incrementHandler}
+                decrementHandler={decrementHandler}
+                removeHandler={removeHandler}
+              />
+            ))
           ) : (
             <h1>No Items Added</h1>
           )}
         </main>
         <aside>
-          <p>Subtotle : ₹{subtotle}</p>
-          <p>Shiping Charges : ₹{shipingCharges}</p>
+          <p>Subtotle : ₹{subtotal}</p>
+          <p>Shiping Charges : ₹{shippingCharges}</p>
           <p>Tax : ₹{tax}</p>
           <p>
             Discount : <em> - ₹{discount}</em>
           </p>
           <p>
-            <b>Totle : ₹{totle}</b>
+            <b>Totle : ₹{total}</b>
           </p>
 
           <input
@@ -73,7 +118,7 @@ function Cart() {
               </span>
             ))}
 
-          {cartsItem.length > 0 && <Link to="/shipping">Checkout</Link>}
+          {cartItems.length > 0 && <Link to="/shipping">Checkout</Link>}
         </aside>
       </div>
     </>
