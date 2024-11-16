@@ -1,4 +1,4 @@
-import { Product, User } from "./types";
+import { Product, ShippingInfo, User, orderTypes } from "./types";
 
 export type customeError = {
   status: number;
@@ -59,4 +59,30 @@ export type updateProductRequest = {
 export type deleteProductRequest = {
   userId: string;
   productId: string;
+};
+
+export type newOrderRequest = {
+  shippingInfo: ShippingInfo;
+  orderItems: [];
+  subtotal: number;
+  shippingCharges: number;
+  discount: number;
+  total: number;
+  tax: number;
+  user: string;
+};
+
+export type updateOrderRequest = {
+  userId: string;
+  orderId: string;
+};
+
+export type allOrderResponse = {
+  success: boolean;
+  orders: orderTypes[];
+};
+
+export type orderDetailsResponse = {
+  success: boolean;
+  order: orderTypes;
 };
