@@ -1,19 +1,20 @@
+import axios from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiArrowBack } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { cartReducerInitialState } from "../../types/reducer-types";
-import { useSelector } from "react-redux";
+import { saveShippingInfo } from "../../redux/reduser/cartReducers";
+import { RootState, server } from "../../redux/store";
 
 function Shipping() {
-  const { cartItems } = useSelector(
-    (state: { cartReducer: cartReducerInitialState }) => state.cartReducer
+  const { cartItems, total } = useSelector(
+    (state: RootState) => state.cartReducer
   );
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (cartItems.length <= 0) return navigate("/cart");
-  }, [cartItems]);
+  const dispatch = useDispatch();
 
   const [shippingInfo, setShippingInfo] = useState({
     address: "",
@@ -29,6 +30,38 @@ function Shipping() {
     setShippingInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    dispatch(saveShippingInfo(shippingInfo));
+
+    try {
+      const { data } = await axios.post(
+        `${server}/api/v1/payment/create`,
+        {
+          amount: total,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      navigate("/pay", {
+        state: data.clientSecret,
+      });
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Something wen't wrong");
+    }
+  };
+
+  useEffect(() => {
+    if (cartItems.length <= 0) return navigate("/cart");
+  }, [cartItems]);
+
   return (
     <>
       <div className="shipping">
@@ -36,7 +69,7 @@ function Shipping() {
           <BiArrowBack />
         </button>
 
-        <form>
+        <form onSubmit={submitHandler}>
           <h1>Shipping Address</h1>
 
           <input

@@ -9,12 +9,13 @@ import ProtectedRoute from "./components/protected-routes/ProtectedRoute";
 import { auth } from "./firebase";
 import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reduser/userReducers";
-import { userReducerInitialState } from "./types/reducer-types";
+import { RootState } from "./redux/store";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const Search = lazy(() => import("./pages/search/Search"));
 const Cart = lazy(() => import("./pages/cart/Cart"));
 const Orders = lazy(() => import("./pages/orders/Orders"));
+const Checkout = lazy(() => import("./pages/checkout/Checkout"));
 
 const NotFound = lazy(() => import("./pages/not-found/NotFound"));
 
@@ -46,7 +47,7 @@ function AppRoutes() {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector(
-    (state: { userReducers: userReducerInitialState }) => state.userReducers
+    (state: RootState) => state.userReducers
   );
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -85,6 +86,7 @@ function AppRoutes() {
           >
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/pay" element={<Checkout />} />
             {/* <Route path="/order/:id" element={<OrderDetails />} /> */}
           </Route>
           {/* admin-Routes */}
