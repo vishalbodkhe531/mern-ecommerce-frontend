@@ -1,4 +1,11 @@
-import { CartItem, Product, ShippingInfo, User, orderTypes } from "./types";
+import {
+  CartItem,
+  Product,
+  ShippingInfo,
+  Stats,
+  User,
+  orderTypes,
+} from "./types";
 
 export type customeError = {
   status: number;
@@ -35,6 +42,11 @@ export type categoriesResponse = {
 
 export type searchProductResponse = allProductResponse & {
   totlePage: number;
+};
+
+export type statsResponce = {
+  success: boolean;
+  stats: Stats;
 };
 
 export type searchProductRequest = {
