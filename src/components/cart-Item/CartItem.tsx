@@ -16,7 +16,7 @@ function CartItemComponent({
   decrementHandler,
   removeHandler,
 }: CartItemProps) {
-  const { productId, photo, name, price, quantity, stock } = cartItem;
+  const { productId, photo, name, price, quantity } = cartItem;
 
   return (
     <>
