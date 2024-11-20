@@ -1,16 +1,16 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { useSelector } from "react-redux";
-import { userReducerInitialState } from "../../../types/reducer-types";
+import { useNavigate, useParams } from "react-router-dom";
+import AdminSidebar from "../../../components/admin/AdminSidebar";
+import { Skeleton } from "../../../components/loader/Loader";
 import {
   useDeleteProductMutation,
   useProductDetailsQuery,
   useUpdateProductMutation,
 } from "../../../redux/api/productAPI";
-import { useNavigate, useParams } from "react-router-dom";
 import { server } from "../../../redux/store";
-import { Skeleton } from "../../../components/loader/Loader";
+import { userReducerInitialState } from "../../../types/reducer-types";
 import { responceTost } from "../../../utils/features";
 
 const Productmanagement = () => {
@@ -21,7 +21,7 @@ const Productmanagement = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
+  const { data, isLoading } = useProductDetailsQuery(params.id!);
 
   const { price, stock, name, photo, category } = data?.product || {
     photo: "",
