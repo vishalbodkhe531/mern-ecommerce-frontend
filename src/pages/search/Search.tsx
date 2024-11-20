@@ -1,15 +1,15 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Skeleton } from "../../components/loader/Loader";
 import ProductCart from "../../components/product/ProductCart";
 import {
   useCategoriesQuery,
   useSearchProductsQuery,
 } from "../../redux/api/productAPI";
-import { customeError } from "../../types/api-types";
-import toast from "react-hot-toast";
-import { Skeleton } from "../../components/loader/Loader";
-import { CartItem } from "../../types/types";
-import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/reduser/cartReducers";
+import { customeError } from "../../types/api-types";
+import { CartItem } from "../../types/types";
 
 function Search() {
   const {
@@ -54,7 +54,7 @@ function Search() {
     toast.error(err.data.message);
   }
 
-  if (productError) {
+  if (productIsError) {
     const err = productError as customeError;
     toast.error(err.data.message);
   }
@@ -114,7 +114,7 @@ function Search() {
             <Skeleton length={10} />
           ) : (
             <div className="search-product-list">
-              {searchedData?.products.map((i) => (
+              {searchedData?.product.map((i) => (
                 <ProductCart
                   productId={i._id}
                   photo={i.photo}
