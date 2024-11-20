@@ -35,7 +35,7 @@ function Home() {
           {isLoading ? (
             <Skeleton width="80vw" />
           ) : (
-            data?.product.map((item: Product) => (
+            data?.products.map((item: Product) => (
               <ProductCart
                 productId={item._id}
                 key={item._id}
