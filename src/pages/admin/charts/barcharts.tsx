@@ -20,7 +20,7 @@ const Barcharts = () => {
   const products = data?.charts.products || [];
   const orders = data?.charts.orders || [];
   const users = data?.charts.users || [];
-  const product = data?.charts.products || [];
+  // const product = data?.charts.products || [];
 
   if (isError) {
     const err = error as customeError;
