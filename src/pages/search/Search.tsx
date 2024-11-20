@@ -40,6 +40,8 @@ function Search() {
     price: maxPrice,
   });
 
+  console.log(searchedData);
+
   const addToCartHandler = (cartItem: CartItem) => {
     if (cartItem.stock < 1) return toast.error("Out of stock");
     dispatch(addToCart(cartItem));
@@ -114,7 +116,7 @@ function Search() {
             <Skeleton length={10} />
           ) : (
             <div className="search-product-list">
-              {searchedData?.product.map((i) => (
+              {searchedData?.products.map((i) => (
                 <ProductCart
                   productId={i._id}
                   photo={i.photo}

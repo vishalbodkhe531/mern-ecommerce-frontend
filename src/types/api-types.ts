@@ -35,7 +35,7 @@ export type userResponce = {
 
 export type allProductResponse = {
   success: boolean;
-  product: Product[];
+  products: Product[];
 };
 
 export type categoriesResponse = {

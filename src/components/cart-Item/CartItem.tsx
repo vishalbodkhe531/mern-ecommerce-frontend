@@ -10,7 +10,7 @@ type CartItemProps = {
   removeHandler: (productId: string) => void;
 };
 
-function CartItem({
+function CartItemComponent({
   cartItem,
   incrementHandler,
   decrementHandler,
@@ -39,4 +39,4 @@ function CartItem({
   );
 }
 
-export default CartItem;
+export default CartItemComponent;
