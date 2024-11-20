@@ -1,4 +1,4 @@
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,6 +45,8 @@ const TransactionManagement = lazy(
 
 function AppRoutes() {
   const dispatch = useDispatch();
+
+  // return signOut(auth).then(() => console.log(`done`)); if you have sign out
 
   const { user, loading } = useSelector(
     (state: RootState) => state.userReducers

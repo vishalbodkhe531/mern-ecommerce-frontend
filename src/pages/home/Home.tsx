@@ -52,40 +52,6 @@ function Home() {
 
       <article className="cover-video-container">
         <div className="cover-video-overlay"></div>
-        {/* <video autoPlay loop muted src={videoCover} />
-      <div className="cover-video-content">
-        <motion.h2
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          Fashion
-        </motion.h2>
-        {coverMessage.map((el, i) => (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              duration: 0.25,
-              delay: i / 10,
-            }}
-            key={i}
-          >
-            {el}{" "}
-          </motion.span>
-        ))}
-      </div>
-      <motion.span
-        animate={{
-          y: [0, 10, 0],
-          transition: {
-            duration: 1,
-            repeat: Infinity,
-          },
-        }}
-      >
-        <FaAnglesDown />
-      </motion.span> */}
       </article>
 
       <article className="our-clients">
@@ -112,19 +78,6 @@ function Home() {
             />
           ))} */}
           </div>
-
-          {/* <motion.p
-          initial={{ opacity: 0, y: -100 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: clients.length / 20,
-            },
-          }}
-        >
-          Trusted By 100+ Companies in 30+ countries
-        </motion.p> */}
         </div>
       </article>
 
@@ -137,27 +90,7 @@ function Home() {
       />
 
       <article className="our-services">
-        <ul>
-          {/* {services.map((service, i) => (
-          <motion.li
-            initial={{ opacity: 0, y: -100 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: {
-                delay: i / 20,
-              },
-            }}
-            key={service.title}
-          >
-            <div>{service.icon}</div>
-            <section>
-              <h3>{service.title}Y</h3>
-              <p>{service.title}</p>
-            </section>
-          </motion.li>
-        ))} */}
-        </ul>
+        <ul></ul>
       </article>
     </>
   );

@@ -1,5 +1,8 @@
 import {
+  Bar,
   CartItem,
+  Line,
+  Pie,
   Product,
   ShippingInfo,
   Stats,
@@ -47,6 +50,21 @@ export type searchProductResponse = allProductResponse & {
 export type statsResponce = {
   success: boolean;
   stats: Stats;
+};
+
+export type pieResponce = {
+  success: boolean;
+  charts: Pie;
+};
+
+export type barResponce = {
+  success: boolean;
+  charts: Bar;
+};
+
+export type lineResponce = {
+  success: boolean;
+  charts: Line;
 };
 
 export type searchProductRequest = {
