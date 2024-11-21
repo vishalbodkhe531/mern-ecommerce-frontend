@@ -40,6 +40,8 @@ const CheckOutForm = () => {
 
   const [newOrder] = useNewOrderMutation();
 
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -69,7 +71,9 @@ const CheckOutForm = () => {
     }
 
     if (paymentIntent.status === "succeeded") {
+      // console.log("orderData : ", orderData);
       const res = await newOrder(orderData);
+      console.log("res : ", res);
       dispatch(resetCart());
       console.log("Placing Order");
       responceTost(res, navigate, "/orders");
@@ -77,8 +81,6 @@ const CheckOutForm = () => {
 
     setIsProcessing(false);
   };
-
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   return (
     <>
