@@ -12,6 +12,8 @@ function Home() {
 
   const dispatch = useDispatch();
 
+  console.log("data : ", data);
+
   if (isError) toast.error("cannot fatch the product");
 
   const addToCartHandler = (cartItem: CartItem) => {

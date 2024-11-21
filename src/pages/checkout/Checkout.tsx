@@ -19,13 +19,12 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const CheckOutForm = () => {
   const stripe = useStripe();
+
   const elements = useElements();
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-  // const { user } = useSelector((state: RootState) => state.userReducer);
 
   const { user } = useSelector((state: RootState) => state.userReducers);
 

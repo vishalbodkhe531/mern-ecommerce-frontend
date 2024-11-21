@@ -69,8 +69,6 @@ const Customers = () => {
     responceTost(res, null, "");
   };
 
-  console.log("data : ", data);
-
   useEffect(() => {
     if (data)
       setRows(

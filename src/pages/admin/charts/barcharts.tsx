@@ -10,8 +10,6 @@ import { getLastMonths } from "../../../utils/features";
 
 const { last12Months, last6Months } = getLastMonths();
 
-console.log(last12Months);
-
 const Barcharts = () => {
   const { user } = useSelector((state: RootState) => state.userReducers);
 
@@ -20,7 +18,6 @@ const Barcharts = () => {
   const products = data?.charts.products || [];
   const orders = data?.charts.orders || [];
   const users = data?.charts.users || [];
-  // const product = data?.charts.products || [];
 
   if (isError) {
     const err = error as customeError;
